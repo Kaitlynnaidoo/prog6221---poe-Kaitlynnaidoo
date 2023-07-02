@@ -6,7 +6,103 @@
         xmlns:local="clr-namespace:prog6221_final_poe_st10083262"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Window.Resources>
+        <Style TargetType="ListViewItem">
+            <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick" />
+        </Style>
+    </Window.Resources>
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <StackPanel>
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="24">
+                Cooks Cache
+            </TextBlock>
+            <StackPanel Margin="8" Orientation="Horizontal">
+                <StackPanel
+                    Width="200"
+                    Margin="40,0,0,0"
+                    VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" Text="Search Bar" />
+                    <TextBox
+                        x:Name="SearchTextBox"
+                        Margin="0,10,0,0"
+                        VerticalAlignment="Center"
+                        TextChanged="SearchBox_TextChanged" />
+                </StackPanel>
+                <StackPanel
+                    Width="200"
+                    Margin="40,0,0,0"
+                    VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" Text="Max Calories" />
+                    <TextBox
+                        x:Name="MaxCaloriesTextBox"
+                        Margin="0,10,0,0"
+                        VerticalAlignment="Center"
+                        TextChanged="CaloriesSortBox_TextChanged" />
+                </StackPanel>
+                <StackPanel
+                    Width="200"
+                    Margin="40,0,0,0"
+                    VerticalAlignment="Center">
+                    <TextBlock HorizontalAlignment="Center" Text="Food Group" />
+                    <ComboBox
+                        x:Name="SortBox"
+                        Margin="0,10,0,0"
+                        VerticalAlignment="Center"
+                        SelectionChanged="SortBox_SelectionChanged">
+                        <ComboBox.Items>
+                            <sys:String>None</sys:String>
+                            <sys:String>Starchy foods</sys:String>
+                            <sys:String>Vegetables and fruits</sys:String>
+                            <sys:String>Dry beans, peas, lentils and soya</sys:String>
+                            <sys:String>Chicken, fish, meat and eggs</sys:String>
+                            <sys:String>Milk and dairy products</sys:String>
+                            <sys:String>Fats and oil</sys:String>
+                            <sys:String>Water</sys:String>
+                        </ComboBox.Items>
+                        <ComboBox.SelectedIndex>
+                            0
+                        </ComboBox.SelectedIndex>
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <ListView
+            Grid.Row="1"
+            MaxHeight="250"
+            ItemsSource="{Binding FilteredRecipes}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="10" Text="{Binding Name}" />
+                        <Button
+                            Grid.Column="1"
+                            Margin="10"
+                            Click="DeleteButton_Click"
+                            Content="Delete" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+        <Button
+            x:Name="AddRecipeButton"
+            Grid.Row="2"
+            Margin="0,10,0,0"
+            Click="AddRecipeButton_Click"
+            Content="Add A Recipe" />
     </Grid>
 </Window>

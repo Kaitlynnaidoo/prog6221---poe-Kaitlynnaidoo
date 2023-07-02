@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prog6221_final_poe_st10083262.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,9 @@ namespace prog6221_final_poe_st10083262
     /// </summary>
     public partial class App : Application
     {
+
+        
+
+
     }
 }
