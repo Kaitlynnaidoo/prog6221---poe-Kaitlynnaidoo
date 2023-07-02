@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:prog6221_final_poe_st10083262"
+        xmlns:local="clr-namespace:prog6221_final_poe_st10083262" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -19,45 +19,40 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="24">
-                Cooks Cache
-            </TextBlock>
-            <StackPanel Margin="8" Orientation="Horizontal">
+            <StackPanel Margin="8" Orientation="Vertical">
                 <StackPanel
                     Width="200"
                     Margin="40,0,0,0"
+                    Orientation="Vertical"
                     VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center" Text="Search Bar" />
+                    <TextBlock HorizontalAlignment="Center" Text="Search a Recipe Name" />
                     <TextBox
                         x:Name="SearchTextBox"
                         Margin="0,10,0,0"
                         VerticalAlignment="Center"
-                        TextChanged="SearchBox_TextChanged" />
+                        TextChanged="RecipeNameSearch" />
                 </StackPanel>
                 <StackPanel
-                    Width="200"
+                    Width="300"
                     Margin="40,0,0,0"
                     VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center" Text="Max Calories" />
+                    <TextBlock HorizontalAlignment="Center" Text="Search for recipes under this amount of calories" />
                     <TextBox
                         x:Name="MaxCaloriesTextBox"
                         Margin="0,10,0,0"
                         VerticalAlignment="Center"
-                        TextChanged="CaloriesSortBox_TextChanged" />
+                        TextChanged="CaloriesSearch" />
                 </StackPanel>
                 <StackPanel
                     Width="200"
                     Margin="40,0,0,0"
                     VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center" Text="Food Group" />
+                    <TextBlock HorizontalAlignment="Center" Text="Search for a Specific Food Group" />
                     <ComboBox
                         x:Name="SortBox"
                         Margin="0,10,0,0"
                         VerticalAlignment="Center"
-                        SelectionChanged="SortBox_SelectionChanged">
+                        SelectionChanged="RecipeFoodGroupSearch">
                         <ComboBox.Items>
                             <sys:String>None</sys:String>
                             <sys:String>Starchy foods</sys:String>
@@ -74,12 +69,15 @@
                     </ComboBox>
                 </StackPanel>
             </StackPanel>
+            <TextBlock HorizontalAlignment="Center" FontWeight="Bold" Text="Double Press a Recipe to Edit, or the button at the bottom to add" />
         </StackPanel>
+
+
 
         <ListView
             Grid.Row="1"
             MaxHeight="250"
-            ItemsSource="{Binding FilteredRecipes}">
+            ItemsSource="{Binding SearchResultsRecipes}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -102,7 +100,8 @@
             x:Name="AddRecipeButton"
             Grid.Row="2"
             Margin="0,10,0,0"
+            Width="200"
             Click="AddRecipeButton_Click"
-            Content="Add A Recipe" />
+            Content="Add A New Recipe (+)" />
     </Grid>
 </Window>

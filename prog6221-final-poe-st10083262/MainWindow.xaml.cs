@@ -19,76 +19,81 @@ namespace prog6221_final_poe_st10083262
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+    public class SearchBarData
+    {
+        public FOODGROUP? FoodGroup = null;
+        public string? RecipeName = null;
+        public int? MaximumCalories = null;
+    }
     public partial class MainWindow : Window
     {
-        // Sort params
-        FOODGROUP? sortFoodGroup = null;
-        string? sortRecipeName = null;
-        int? sortMaxCalories = null;
+
+        SearchBarData searchBarData = new SearchBarData();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = Repo.Instance;
+            DataContext = RecipeDatabase.Instance;
 
         }
 
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void RecipeNameSearch(object sender, TextChangedEventArgs e)
         {
 
             string str = SearchTextBox.Text;
 
             if (string.IsNullOrEmpty(str))
             {
-                sortRecipeName = null;
-                Repo.Instance.FilterRecipes(sortFoodGroup, sortRecipeName, sortMaxCalories);
+                searchBarData.RecipeName = null;
+                RecipeDatabase.Instance.SearchRecipes(searchBarData);
                 return;
             }
 
-            sortRecipeName = str;
-            Repo.Instance.FilterRecipes(sortFoodGroup, sortRecipeName, sortMaxCalories);
+            searchBarData.RecipeName = str;
+            RecipeDatabase.Instance.SearchRecipes(searchBarData);
         }
 
-        private void CaloriesSortBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void CaloriesSearch(object sender, TextChangedEventArgs e)
         {
             string str = MaxCaloriesTextBox.Text;
 
             if (string.IsNullOrEmpty(str))
             {
-                sortMaxCalories = null;
-                Repo.Instance.FilterRecipes(sortFoodGroup, sortRecipeName, sortMaxCalories);
+                searchBarData.MaximumCalories = null;
+                RecipeDatabase.Instance.SearchRecipes(searchBarData);
                 return;
             }
 
             bool success = int.TryParse(str, out int number);
             if (success)
             {
-                sortMaxCalories = number;
-                Repo.Instance.FilterRecipes(sortFoodGroup, sortRecipeName, sortMaxCalories);
+                searchBarData.MaximumCalories = number;
+                RecipeDatabase.Instance.SearchRecipes(searchBarData);
             }
             else
             {
-                Repo.Instance.FilterRecipes(sortFoodGroup, sortRecipeName, sortMaxCalories);
+                RecipeDatabase.Instance.SearchRecipes(searchBarData);
             }
 
         }
 
-        private void SortBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RecipeFoodGroupSearch(object sender, SelectionChangedEventArgs e)
         {
 
             if (SortBox.SelectedIndex != -1 && SortBox.SelectedIndex != 0)
             {
-                FoodGroup selectedFoodGroup = (FoodGroup)Enum.GetValues(typeof(FoodGroup)).GetValue(SortBox.SelectedIndex - 1);
+                FOODGROUP selectedFoodGroup = (FOODGROUP)Enum.GetValues(typeof(FOODGROUP)).GetValue(SortBox.SelectedIndex - 1);
                 // Use the selectedFoodGroup enum value as needed
                 Console.WriteLine(selectedFoodGroup);
-                sortFoodGroup = selectedFoodGroup;
-                Repo.Instance.FilterRecipes(sortFoodGroup, sortRecipeName, sortMaxCalories);
+                searchBarData.FoodGroup = selectedFoodGroup;
+                RecipeDatabase.Instance.SearchRecipes(searchBarData);
             }
             else
             {
-                sortFoodGroup = null;
-                Repo.Instance.FilterRecipes(sortFoodGroup, sortRecipeName, sortMaxCalories);
+                searchBarData.FoodGroup = null;
+                RecipeDatabase.Instance.SearchRecipes(searchBarData);
             }
         }
 
@@ -98,18 +103,18 @@ namespace prog6221_final_poe_st10083262
             Recipe recipe = button.DataContext as Recipe;
             if (recipe != null)
             {
-                Repo.Instance.RemoveRecipe(recipe);
+                RecipeDatabase.Instance.DeleteRecipe(recipe);
             }
         }
 
         private void AddRecipeButton_Click(object sender, RoutedEventArgs e)
         {
 
-            RecipeWindow window = new RecipeWindow(-1);
+            /*RecipeWindow window = new RecipeWindow(-1);
             if (window.ShowDialog() == true)
             {
                 Repo.Instance.AddRecipe(window.Recipe);
-            }
+            }*/
         }
 
         void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -122,7 +127,7 @@ namespace prog6221_final_poe_st10083262
             }
             else
             {
-                RecipeWindow window = new RecipeWindow(recipe.ID);
+               /* RecipeWindow window = new RecipeWindow(recipe.ID);
                 if (window.ShowDialog() == true)
                 {
                     if (Repo.Instance.Recipes.Count == window.Recipe.ID)
@@ -133,9 +138,9 @@ namespace prog6221_final_poe_st10083262
                     {
                         Repo.Instance.UpdateRecipe(window.Recipe);
                     }
-                }
+                }*/
             }
         }
     
-}
+    }
 }

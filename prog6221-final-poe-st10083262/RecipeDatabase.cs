@@ -9,48 +9,53 @@ using System.Threading.Tasks;
 
 namespace prog6221_final_poe_st10083262
 {
-    public class RecipeManager
+    public class RecipeDatabase
     {
-        private static RecipeManager _instance;
-        private RecipeManager() {
+        private static RecipeDatabase _instance;
 
-            Recipe r1 = new Recipe(0, "Prawns");
-            r1.AddIngredient(new Ingredient("Water", 1, "litres", 10, FOODGROUP.WATER));
-            r1.AddIngredient(new Ingredient("Prawns", 1, "Kilograms", 1000, FOODGROUP.CHICKEN_FISH_MEAT_AND_EGGS));
-            r1.AddStep("Add 1 litres of water to pan and boil it.");
-            r1.AddStep("Place 1 Kilograms of prawns into the pan and cook until ready.");
+        private ObservableCollection<Recipe> _recipes = new ObservableCollection<Recipe>();
+        private ObservableCollection<Recipe> _filteredRecipes = new ObservableCollection<Recipe>();
 
-            Recipe r2 = new Recipe(1, "Pancakes");
-            r2.AddIngredient(new Ingredient("Flour", 100, "Grams", 250, FOODGROUP.STARCHY_FOODS));
-            r2.AddIngredient(new Ingredient("Syrup", 100, "ml", 1000, FOODGROUP.FATS_AND_OIL));
-            r2.AddIngredient(new Ingredient("Butter", 1, "stick", 1000, FOODGROUP.FATS_AND_OIL));
-            r2.AddStep("Cook 100 Grams of Flour until it forms a disc");
-            r2.AddStep("Squirt out 100 ml of Syrup ontop of the pancake batter.");
-            r2.AddStep("If you want to, add 1 stick of Butter to the dish.s");
-
-            Recipes.Add(r1);
-            Recipes.Add(r2);
-        }
-        private ObservableCollection<Recipe> _recipes;
-        private ObservableCollection<Recipe> _filteredRecipes;
-
-        public static RecipeManager Instance
+        public static RecipeDatabase Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = new RecipeManager();
+                {
+                    _instance = new RecipeDatabase();
+                    Recipe r1 = new Recipe(0, "Prawns");
+                    r1.AddIngredient(new Ingredient("Water", 1, "litres", 10, FOODGROUP.WATER));
+                    r1.AddIngredient(new Ingredient("Prawns", 1, "Kilograms", 1000, FOODGROUP.CHICKEN_FISH_MEAT_AND_EGGS));
+                    r1.AddStep("Add 1 litres of water to pan and boil it.");
+                    r1.AddStep("Place 1 Kilograms of prawns into the pan and cook until ready.");
+
+                    Recipe r2 = new Recipe(1, "Pancakes");
+                    r2.AddIngredient(new Ingredient("Flour", 100, "Grams", 250, FOODGROUP.STARCHY_FOODS));
+                    r2.AddIngredient(new Ingredient("Syrup", 100, "ml", 1000, FOODGROUP.FATS_AND_OIL));
+                    r2.AddIngredient(new Ingredient("Butter", 1, "stick", 1000, FOODGROUP.FATS_AND_OIL));
+                    r2.AddStep("Cook 100 Grams of Flour until it forms a disc");
+                    r2.AddStep("Squirt out 100 ml of Syrup ontop of the pancake batter.");
+                    r2.AddStep("If you want to, add 1 stick of Butter to the dish.s");
+
+                    _instance.AllRecipes.Add(r1);
+                    _instance.AllRecipes.Add(r2);
+                }
                 return _instance;
             }
         }
 
-        public ObservableCollection<Recipe> Recipes
+        private RecipeDatabase()
+        {
+
+        }
+
+        public ObservableCollection<Recipe> AllRecipes
         {
             get { return _recipes; }
             set { _recipes = value; }
         }
 
-        public ObservableCollection<Recipe> FilteredRecipes
+        public ObservableCollection<Recipe> SearchResultsRecipes
         {
             get { return _filteredRecipes; }
             set { _filteredRecipes = value; }
@@ -58,67 +63,69 @@ namespace prog6221_final_poe_st10083262
 
         public void AddRecipe(Recipe recipe)
         {
-            Recipes.Add(recipe);
-            FilterRecipes();
+            AllRecipes.Add(recipe);
+            // Re-add all recipes
+            SearchRecipes(new SearchBarData());
         }
 
-        public void RemoveRecipe(Recipe recipe)
+        public void DeleteRecipe(Recipe recipe)
         {
-            Recipes.Remove(recipe);
-            FilterRecipes();
+            AllRecipes.Remove(recipe);
+            // Re-add all recipes
+            SearchRecipes(new SearchBarData());
         }
 
         public void UpdateRecipe(Recipe recipe)
         {
-            // Find the recipe in the list and update its properties
-            Recipe existingRecipe = Recipes.FirstOrDefault(r => r.ID == recipe.ID);
+            // Find the recipe
+            Recipe existingRecipe = AllRecipes.FirstOrDefault(r => r.ID == recipe.ID);
             if (existingRecipe != null)
             {
                 existingRecipe.Name = recipe.Name;
                 existingRecipe.Ingredients = recipe.Ingredients;
                 existingRecipe.Steps = recipe.Steps;
                 existingRecipe.CurrentScale = recipe.CurrentScale;
-                FilterRecipes();
+                SearchRecipes(new SearchBarData());
             }
         }
 
-        public void FilterRecipes(FOODGROUP? foodGroup = null, string? recipeName = null, int? maxCalories = null)
+        public void SearchRecipes(SearchBarData searchBar)
         {
-            FilteredRecipes.Clear();
+            SearchResultsRecipes.Clear();
 
-            if (foodGroup == null && recipeName == null && maxCalories == null)
+            if (searchBar.FoodGroup == null && searchBar.RecipeName == null && searchBar.MaximumCalories == null)
             {
-                // No filter criteria specified, add all recipes to the filtered list
-                foreach (Recipe recipe in Recipes)
+                // Do not do any adding, just force refresh the list
+                foreach (Recipe recipe in AllRecipes)
                 {
-                    FilteredRecipes.Add(recipe);
+                    SearchResultsRecipes.Add(recipe);
                 }
             }
             else
             {
-                // Filter the recipes based on the selected criteria
-                foreach (Recipe recipe in Recipes)
+                // use the searchbar data to filter the recipes.
+                foreach (Recipe recipe in AllRecipes)
                 {
                     bool addRecipe = true;
 
-                    if (foodGroup != null && !recipe.Ingredients.Any(i => i.FoodGroup == foodGroup))
+                    if (searchBar.FoodGroup != null && !recipe.Ingredients.Any(i => i.FoodGroup == searchBar.FoodGroup))
                     {
                         addRecipe = false;
                     }
 
-                    if (recipeName != null && !recipe.Name.Contains(recipeName))
+                    if (searchBar.RecipeName != null && !recipe.Name.Contains(searchBar.RecipeName))
                     {
                         addRecipe = false;
                     }
 
-                    if (maxCalories != null && recipe.Calories > maxCalories)
+                    if (searchBar.MaximumCalories != null && recipe.Calories > searchBar.MaximumCalories)
                     {
                         addRecipe = false;
                     }
 
                     if (addRecipe)
                     {
-                        FilteredRecipes.Add(recipe);
+                        SearchResultsRecipes.Add(recipe);
                     }
                 }
             }
