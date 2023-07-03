@@ -7,213 +7,241 @@
         mc:Ignorable="d"
         Title="CreateOrEditRecipe" Height="600" Width="800">
 
-    <Grid Margin="8">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" >
+        <Grid Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal">
-            <TextBlock
+            <StackPanel Orientation="Horizontal">
+                <TextBlock
                     Margin="0,0,10,0"
                     FontSize="17"
                     Text="Recipe Name:" />
-            <TextBox
+                <TextBox
                     x:Name="RecipeNameTextBox"
                     MinWidth="200"
                     FontSize="17" />
-        </StackPanel>
+            </StackPanel>
 
-        <Grid Grid.Row="1" Margin="0,10,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid Margin="8" Grid.Row="0" Grid.Column="0">
+            <Grid Grid.Row="1" Margin="0,10,0,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Margin="8" Grid.Row="0" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock
+                    <TextBlock
             Grid.Row="0"
             FontSize="14"
             Text="Add An Ingredient" />
 
-                <UniformGrid
+                    <UniformGrid
             Grid.Row="1"
             Margin="0,20,0,0"
             Columns="2"
             Rows="1">
-                    <TextBlock VerticalAlignment="Center" Text="Name:" />
-                    <TextBox x:Name="IngredientNameTextBox" VerticalAlignment="Center" />
-                </UniformGrid>
+                        <TextBlock VerticalAlignment="Center" Text="Name:" />
+                        <TextBox x:Name="IngredientNameTextBox" VerticalAlignment="Center" />
+                    </UniformGrid>
 
-                <UniformGrid
+                    <UniformGrid
             Grid.Row="2"
             Margin="0,5,0,0"
             Columns="2"
             Rows="1">
-                    <TextBlock VerticalAlignment="Center" Text="Quantity:" />
-                    <TextBox x:Name="QuantityTextBox" VerticalAlignment="Center" />
-                </UniformGrid>
+                        <TextBlock VerticalAlignment="Center" Text="Quantity:" />
+                        <TextBox x:Name="QuantityTextBox" VerticalAlignment="Center" />
+                    </UniformGrid>
 
-                <UniformGrid
+                    <UniformGrid
             Grid.Row="3"
             Margin="0,5,0,0"
             Columns="2"
             Rows="1">
-                    <TextBlock VerticalAlignment="Center" Text="Unit of Measurement:" />
-                    <TextBox x:Name="UnitOfMeasurementTextBox" VerticalAlignment="Center" />
-                </UniformGrid>
+                        <TextBlock VerticalAlignment="Center" Text="Unit of Measurement:" />
+                        <TextBox x:Name="UnitOfMeasurementTextBox" VerticalAlignment="Center" />
+                    </UniformGrid>
 
-                <UniformGrid
+                    <UniformGrid
             Grid.Row="4"
             Margin="0,5,0,0"
             Columns="2"
             Rows="1">
-                    <TextBlock VerticalAlignment="Center" Text="Calories:" />
-                    <TextBox x:Name="CaloriesMeasurementTextBox" VerticalAlignment="Center" />
-                </UniformGrid>
+                        <TextBlock VerticalAlignment="Center" Text="Calories:" />
+                        <TextBox x:Name="CaloriesMeasurementTextBox" VerticalAlignment="Center" />
+                    </UniformGrid>
 
 
-                <UniformGrid
+                    <UniformGrid
             Grid.Row="5"
             Margin="0,5,0,0"
             Columns="2"
             Rows="1">
-                    <TextBlock VerticalAlignment="Center" Text="Food Group:" />
-                    <ComboBox
+                        <TextBlock VerticalAlignment="Center" Text="Food Group:" />
+                        <ComboBox
                 x:Name="FoodGroupComboBox"
                 Grid.Row="5"
                 VerticalAlignment="Center">
-                        <ComboBox.Items>
-                            <sys:String>Starchy foods</sys:String>
-                            <sys:String>Vegetables and fruits</sys:String>
-                            <sys:String>Dry beans, peas, lentils and soya</sys:String>
-                            <sys:String>Chicken, fish, meat and eggs</sys:String>
-                            <sys:String>Milk and dairy products</sys:String>
-                            <sys:String>Fats and oil</sys:String>
-                            <sys:String>Water</sys:String>
-                        </ComboBox.Items>
-                        <ComboBox.SelectedIndex>
-                            0
-                        </ComboBox.SelectedIndex>
-                    </ComboBox>
-                </UniformGrid>
+                            <ComboBox.Items>
+                                <sys:String>Starchy foods</sys:String>
+                                <sys:String>Vegetables and fruits</sys:String>
+                                <sys:String>Dry beans, peas, lentils and soya</sys:String>
+                                <sys:String>Chicken, fish, meat and eggs</sys:String>
+                                <sys:String>Milk and dairy products</sys:String>
+                                <sys:String>Fats and oil</sys:String>
+                                <sys:String>Water</sys:String>
+                            </ComboBox.Items>
+                            <ComboBox.SelectedIndex>
+                                0
+                            </ComboBox.SelectedIndex>
+                        </ComboBox>
+                    </UniformGrid>
 
-                <TextBlock
-            x:Name="ErrorTextBox"
-            Grid.Row="6"
-            Margin="0,10,0,0"
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                              Grid.Row="6"
+            Margin="0,10,0,0">
+                        <TextBlock
+            x:Name="IngredientErrorTextBox"
             HorizontalAlignment="Stretch" />
+                    </ScrollViewer>
 
-                <Button Grid.Row="7"
-            Margin="0,15,0,0"
+                    <Button Grid.Row="7"
+                Margin="0,15,0,0"
                 x:Name="AddIngredientButton"
                 Width="150"
                 Click="AddIngredientButton_Click"
-                Content="Add" />
+                Content="Add New Ingredient" />
 
-            </Grid>
-            <ListView Grid.Row="0" Grid.Column="1"
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="0" Margin="8, 40 ,8 ,8" Width="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+            Grid.Row="0"
+            FontSize="14"
+            Text="Add A Step" />
+
+                    <UniformGrid
+            Grid.Row="1"
+            Margin="0,20,0,0"
+            Columns="2"
+            Rows="1">
+                        <TextBlock VerticalAlignment="Center" Text="Step:" />
+                        <TextBox x:Name="StepTextBox" VerticalAlignment="Center" />
+                    </UniformGrid>
+
+                    <TextBlock
+            x:Name="StepErrorTextBox"
+            Grid.Row="2"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Stretch" />
+
+                    <Button
+                x:Name="SaveStepButton" Grid.Row="3"
+            Margin="0,15,0,0"
+                Width="150"
+                Click="SaveStepButton_Click"
+                Content="Add New Step" />
+                </Grid>
+                <ListView Grid.Row="0" Grid.Column="1"
                 x:Name="IngredientsListView"
                 Width="300"
                 Height="200"
                 d:ItemsSource="{d:SampleData ItemCount=5}"
                 ItemsSource="{Binding Ingredients}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Margin="2">
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} {1} of {2}">
-                                        <Binding Path="Quantity" />
-                                        <Binding Path="UnitOfMeasurement" />
-                                        <Binding Path="Name" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                            <TextBlock
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Margin="2">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1} of {2}">
+                                            <Binding Path="Quantity" />
+                                            <Binding Path="UnitOfMeasurement" />
+                                            <Binding Path="Name" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock
                                 Grid.Row="1"
                                 Margin="2"
                                 Text="{Binding FoodGroup, StringFormat='Food Group: {0}'}" />
-                            <TextBlock
+                                <TextBlock
                                 Grid.Row="2"
                                 Margin="2"
                                 Text="{Binding Calories, StringFormat='Calories: {0}'}" />
-                            <Button
+                                <Button
                                 x:Name="DeleteIngredient"
                                 Grid.Row="3"
                                 Margin="2"
                                 Click="DeleteIngredient_Click"
                                 Content="Delete" />
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView Grid.Row="1" Grid.Column="1" Margin="0, 20, 0, 0"
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ListView Grid.Row="1" Grid.Column="1" Margin="0, 20, 0, 0"
                 x:Name="StepsListView"
                 Width="300"
                 d:ItemsSource="{d:SampleData ItemCount=5}"
                 ItemsSource="{Binding Steps}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel
                             Width="275"
                             Margin="5"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
-                            <TextBlock Margin="0,0,0,5" Text="{Binding}" />
-                            <Button
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                    <TextBlock Margin="0,0,0,5" Text="{Binding}" />
+                                </ScrollViewer>
+                                <Button
                                 x:Name="DeleteStepButton"
                                 Click="DeleteStepButton_Click"
                                 Content="Delete" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
-        <UniformGrid
-            Grid.Row="2"
-            Margin="0,5,0,0"
-            Columns="2"
-            Rows="1">
-            <Button
-                x:Name="AddIngredient"
-                Width="300"
-                Click="AddIngredient_Click"
-                Content="Add an Ingredient" />
-            <Button
-                x:Name="AddStep"
-                Width="300"
-                Click="AddStep_Click"
-                Content="Add a Step" />
-        </UniformGrid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
 
-        <TextBlock
+            <TextBlock
             Grid.Row="3"
                 x:Name="CaloriesTextBlock"
                 HorizontalAlignment="Center"
@@ -221,55 +249,56 @@
                 FontSize="17"
                 Text="{Binding Calories, StringFormat='Calories: {0}'}" />
 
-        <UniformGrid
+            <UniformGrid
             Grid.Row="4"
             Margin="100,30,100,0"
             Columns="5"
             Rows="1">
-            <Button
+                <Button
                 x:Name="ResetScaleButton"
                 Height="20"
                 Margin="0,0,5,0"
                 VerticalAlignment="Top"
                 Click="ResetScaleButton_Click"
                 Content="Reset Scale" />
-            <Button
+                <Button
                 x:Name="HalfScaleButton"
                 Margin="0,0,5,0"
                 Click="HalfScaleButton_Click"
                 Content="Scale by 1/2" />
-            <Button
+                <Button
                 x:Name="DoubleScaleButton"
                 Margin="0,0,5,0"
                 Click="DoubleScaleButton_Click"
                 Content="Scale 2 Times" />
-            <Button
+                <Button
                 x:Name="TripleScaleButton"
                 Margin="0,0,5,0"
                 Click="TripleScaleButton_Click"
                 Content="Scale 3 Times" />
-        </UniformGrid>
+            </UniformGrid>
 
-        <TextBlock
+            <TextBlock
             x:Name="ErrorTextBlock"
             Grid.Row="5"
             Margin="100,20,100,0" />
 
-        <UniformGrid
+            <UniformGrid
             Grid.Row="6"
             Margin="100,30,100,0"
             HorizontalAlignment="Stretch"
             Columns="2"
             Rows="1">
-            <Button
+                <Button
                 x:Name="BackButton"
                 Margin="0,0,10,0"
                 Click="Back_Click"
                 Content="Back" />
-            <Button
+                <Button
                 x:Name="SaveButton"
                 Click="Save_Click"
                 Content="Save" />
-        </UniformGrid>
-    </Grid>
+            </UniformGrid>
+        </Grid>
+    </ScrollViewer>
 </Window>

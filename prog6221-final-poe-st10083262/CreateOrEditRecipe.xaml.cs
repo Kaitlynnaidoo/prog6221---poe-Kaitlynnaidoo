@@ -187,11 +187,27 @@ namespace prog6221_final_poe_st10083262
             }
             else
             {
-                ErrorTextBox.Text = error;
+                IngredientErrorTextBox.Text = error;
             }
 
             isError = false;
 
+        }
+
+        private void SaveStepButton_Click(object sender, RoutedEventArgs e)
+        {
+            string error = "";
+
+            if (string.IsNullOrEmpty(StepTextBox.Text))
+            {
+                error = "The step cannot be empty.";
+            }
+            else
+            {
+                Recipe.AddStep(StepTextBox.Text);
+            }
+
+            StepErrorTextBox.Text = error;
         }
     }
 }

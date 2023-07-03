@@ -26,8 +26,8 @@ namespace prog6221_final_poe_st10083262
                     Recipe r1 = new Recipe(0, "Prawns");
                     r1.AddIngredient(new Ingredient("Water", 1, "litres", 10, FOODGROUP.WATER));
                     r1.AddIngredient(new Ingredient("Prawns", 1, "Kilograms", 1000, FOODGROUP.CHICKEN_FISH_MEAT_AND_EGGS));
-                    r1.AddStep("Add 1 litres of water to pan and boil it.");
-                    r1.AddStep("Place 1 Kilograms of prawns into the pan and cook until ready.");
+                    r1.AddStep("Add 1 litres of Water to pan and boil it.");
+                    r1.AddStep("Place 1 Kilograms of Prawns into the pan and cook until ready.");
 
                     Recipe r2 = new Recipe(1, "Pancakes");
                     r2.AddIngredient(new Ingredient("Flour", 100, "Grams", 250, FOODGROUP.STARCHY_FOODS));
@@ -35,7 +35,7 @@ namespace prog6221_final_poe_st10083262
                     r2.AddIngredient(new Ingredient("Butter", 1, "stick", 1000, FOODGROUP.FATS_AND_OIL));
                     r2.AddStep("Cook 100 Grams of Flour until it forms a disc");
                     r2.AddStep("Squirt out 100 ml of Syrup ontop of the pancake batter.");
-                    r2.AddStep("If you want to, add 1 stick of Butter to the dish.s");
+                    r2.AddStep("If you want to, add 1 stick of Butter to the dish.");
 
                     _instance.AllRecipes.Add(r1);
                     _instance.AllRecipes.Add(r2);
