@@ -24,11 +24,11 @@ namespace prog6221_final_poe_st10083262.Model
         private string ingredientName;
         private double quantity;
         private string unitOfMeasurement;
-        private int calories;
+        private double calories;
         private FOODGROUP foodGroup;
 
 
-        public int Calories
+        public double Calories
         {
             get { return calories; }
             set

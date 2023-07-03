@@ -42,7 +42,7 @@ namespace prog6221_final_poe_st10083262
         private void RecipeNameSearch(object sender, TextChangedEventArgs e)
         {
 
-            string str = SearchTextBox.Text;
+            string str = recipeNameTextBox.Text;
 
             if (string.IsNullOrEmpty(str))
             {
@@ -57,16 +57,16 @@ namespace prog6221_final_poe_st10083262
 
         private void CaloriesSearch(object sender, TextChangedEventArgs e)
         {
-            string str = MaxCaloriesTextBox.Text;
+            string name = maximumCaloriesSearchBox.Text;
 
-            if (string.IsNullOrEmpty(str))
+            if (string.IsNullOrEmpty(name))
             {
                 searchBarData.MaximumCalories = null;
                 RecipeDatabase.Instance.SearchRecipes(searchBarData);
                 return;
             }
 
-            bool success = int.TryParse(str, out int number);
+            bool success = int.TryParse(name, out int number);
             if (success)
             {
                 searchBarData.MaximumCalories = number;
@@ -82,12 +82,14 @@ namespace prog6221_final_poe_st10083262
         private void RecipeFoodGroupSearch(object sender, SelectionChangedEventArgs e)
         {
 
-            if (SortBox.SelectedIndex != -1 && SortBox.SelectedIndex != 0)
+            if (foodGroupBox.SelectedIndex != -1 && foodGroupBox.SelectedIndex != 0)
             {
-                FOODGROUP selectedFoodGroup = (FOODGROUP)Enum.GetValues(typeof(FOODGROUP)).GetValue(SortBox.SelectedIndex - 1);
-                // Use the selectedFoodGroup enum value as needed
-                Console.WriteLine(selectedFoodGroup);
-                searchBarData.FoodGroup = selectedFoodGroup;
+                // Cast into to enum
+                FOODGROUP searchFoodGroupTmp = (FOODGROUP)
+                    Enum.GetValues(typeof(FOODGROUP))
+                    .GetValue(foodGroupBox.SelectedIndex - 1);
+
+                searchBarData.FoodGroup = searchFoodGroupTmp;
                 RecipeDatabase.Instance.SearchRecipes(searchBarData);
             }
             else
@@ -107,17 +109,7 @@ namespace prog6221_final_poe_st10083262
             }
         }
 
-        private void AddRecipeButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            /*RecipeWindow window = new RecipeWindow(-1);
-            if (window.ShowDialog() == true)
-            {
-                Repo.Instance.AddRecipe(window.Recipe);
-            }*/
-        }
-
-        void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        void Recipe_OnClick(object sender, MouseButtonEventArgs e)
         {
             Recipe recipe = ((ListViewItem)sender).Content as Recipe;
 
@@ -127,20 +119,30 @@ namespace prog6221_final_poe_st10083262
             }
             else
             {
-               /* RecipeWindow window = new RecipeWindow(recipe.ID);
+                CreateOrEditRecipe window = new CreateOrEditRecipe(recipe.ID);
                 if (window.ShowDialog() == true)
                 {
-                    if (Repo.Instance.Recipes.Count == window.Recipe.ID)
+                    if (RecipeDatabase.Instance.AllRecipes.Count == window.Recipe.ID)
                     {
-                        Repo.Instance.AddRecipe(window.Recipe);
+                        RecipeDatabase.Instance.AddRecipe(window.Recipe);
                     }
                     else
                     {
-                        Repo.Instance.UpdateRecipe(window.Recipe);
+                        RecipeDatabase.Instance.UpdateRecipe(window.Recipe);
                     }
-                }*/
+                }
             }
         }
-    
+
+        private void AddRecipeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            CreateOrEditRecipe window = new CreateOrEditRecipe(-1);
+            if (window.ShowDialog() == true)
+            {
+                RecipeDatabase.Instance.AddRecipe(window.Recipe);
+            }
+        }
+
     }
 }

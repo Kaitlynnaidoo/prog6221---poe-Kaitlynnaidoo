@@ -54,7 +54,7 @@ namespace prog6221_final_poe_st10083262.Model
             }
         }
 
-        public int Calories
+        public double Calories
         {
             get
             {
@@ -102,9 +102,9 @@ namespace prog6221_final_poe_st10083262.Model
                         // This ensures that we dont scale an already scaled value.
 
                         ingredient.Quantity /= scalingValues[currentScale];
-                        ingredient.Calories /= (int)scalingValues[currentScale];
+                        ingredient.Calories /= scalingValues[currentScale];
                         ingredient.Quantity *= scalingValues[value];
-                        ingredient.Calories *= (int)scalingValues[currentScale];
+                        ingredient.Calories *= scalingValues[value];
                     }
 
                     currentScale = value;
