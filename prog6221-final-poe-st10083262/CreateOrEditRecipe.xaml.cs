@@ -71,24 +71,6 @@ namespace prog6221_final_poe_st10083262
             }
         }
 
-        private void AddIngredient_Click(object sender, RoutedEventArgs e)
-        {
-            /*CreateIngredientWindow window = new CreateIngredientWindow();
-            if (window.ShowDialog() == true)
-            {
-                Recipe.AddIngredient(window.Ingredient);
-            }*/
-        }
-
-        private void AddStep_Click(object sender, RoutedEventArgs e)
-        {
-            /*CreateStepWindow window = new CreateStepWindow();
-            if (window.ShowDialog() == true)
-            {
-                Recipe.AddStep(window.Step);
-            }*/
-        }
-
         private void HalfScaleButton_Click(object sender, RoutedEventArgs e)
         {
             Recipe.CurrentScale = SCALING.Half;
