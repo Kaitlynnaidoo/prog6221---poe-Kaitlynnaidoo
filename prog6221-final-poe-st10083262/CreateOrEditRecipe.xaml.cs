@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,11 +32,15 @@ namespace prog6221_final_poe_st10083262
             if (id == -1)
             {
                 Recipe = new Recipe();
+                BackButton.Visibility = Visibility.Collapsed;
             }
             else
             {
                 Recipe = RecipeDatabase.Instance.AllRecipes.FirstOrDefault(obj => obj.ID == id);
                 RecipeNameTextBox.Text = Recipe.Name;
+
+                BackButton.Visibility = Visibility.Collapsed;
+                SaveButton.Visibility = Visibility.Collapsed;
 
             }
 
@@ -126,6 +131,67 @@ namespace prog6221_final_poe_st10083262
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void AddIngredientButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            bool isError = false;
+            string error = "";
+
+            string name = IngredientNameTextBox.Text;
+            if (string.IsNullOrEmpty(name))
+            {
+                error += "Name cannot be empty. ";
+                isError = true;
+            }
+
+            string quantityStr = QuantityTextBox.Text;
+            double quantity;
+            if (!Double.TryParse(quantityStr, out quantity))
+            {
+                error += "The quantity is not valid. ";
+                isError = true;
+            }
+
+            string unitOfMeasurement = UnitOfMeasurementTextBox.Text;
+            if (string.IsNullOrEmpty(unitOfMeasurement))
+            {
+                error += "The unit of measurement cannot be empty. ";
+                isError = true;
+            }
+
+            string caloriesStr = CaloriesMeasurementTextBox.Text;
+            int calories;
+            if (!int.TryParse(caloriesStr, out calories))
+            {
+                error += "The number of calories is not valid whole number. ";
+                isError = true;
+            }
+
+            FOODGROUP foodGroup = FOODGROUP.WATER;
+            if (Enum.IsDefined(typeof(FOODGROUP), FoodGroupComboBox.SelectedIndex))
+            {
+                foodGroup = (FOODGROUP)FoodGroupComboBox.SelectedIndex;
+
+            }
+            else
+            {
+                error += "The selected food group is not valid. ";
+                isError = true;
+            }
+
+            if (!isError)
+            {
+                Recipe.AddIngredient(new Ingredient(name, quantity, unitOfMeasurement, calories, foodGroup));
+            }
+            else
+            {
+                ErrorTextBox.Text = error;
+            }
+
+            isError = false;
+
         }
     }
 }
