@@ -29,6 +29,8 @@ namespace prog6221_final_poe_st10083262
             InitializeComponent();
 
             this.id = id;
+
+            // if this is a new Recipe.
             if (id == -1)
             {
                 Recipe = new Recipe();
@@ -38,6 +40,8 @@ namespace prog6221_final_poe_st10083262
             {
                 Recipe = RecipeDatabase.Instance.AllRecipes.FirstOrDefault(obj => obj.ID == id);
                 RecipeNameTextBox.Text = Recipe.Name;
+
+                // Do not show the buttons as it saves in real time, in a viewmodel.
 
                 BackButton.Visibility = Visibility.Collapsed;
                 SaveButton.Visibility = Visibility.Collapsed;
@@ -113,9 +117,12 @@ namespace prog6221_final_poe_st10083262
             }
             else
             {
+
+                // If this is a new Recipe
                 if (id == -1)
                 {
                     Recipe.Name = RecipeNameTextBox.Text;
+                    // Check for the highest used id and then increment it.
                     var max_value = RecipeDatabase.Instance.AllRecipes.Max(x => x.ID);
                     Recipe.ID = max_value + 1;
                     DialogResult = true;
